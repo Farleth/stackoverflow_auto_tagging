@@ -1,22 +1,16 @@
 from stackapi import StackAPI
 import pandas as pd
+import os
+from supabase import create_client, Client
 
-SITE = StackAPI('stackoverflow')
-posts = SITE.fetch('questions', filter="withbody")
-print(posts)
+url = "https://bosbinvsnempbohyiwjy.supabase.co"
+key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJvc2JpbnZzbmVtcGJvaHlpd2p5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDMwNjY2OTQsImV4cCI6MjAxODY0MjY5NH0.1_2dP0dRw2tSiEjervRFTXWftM77DbTk3IHyT6C1Rcc"
+supabase: Client = create_client(url, key)
 
-items = posts.get("items")
+def get_data():
+    response = supabase.from_('data').select('*').execute()
+    df = pd.DataFrame(response.data)
 
-title_list = []
-body_list = []
-
-for i in items:
-    title = i.get('title')
-    body = i.get('body')
-    title_list.append(title)
-    body_list.append(body)
-
-
-df = pd.DataFrame(data=[title_list, body_list], columns=['title', 'body'])
-
-print(df)
+def post_data(title, body, pred):
+    data, count = supabase.table('data').insert({"Title": title, "Body": body, "Tags": pred}).execute()
+    print("Posting data response ", data, count)

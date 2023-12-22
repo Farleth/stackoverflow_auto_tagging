@@ -17,3 +17,4 @@ Pour accéder à l'UI MLFLOW:
 ```
 mlflow ui
 ```
+[Doc Tech](Doc Technique.pdf)

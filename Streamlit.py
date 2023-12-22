@@ -1,6 +1,6 @@
 import streamlit as st
 import pickle
-from api import get_data, post_data
+from api import get_data, post_data, stem
 import pandas as pd
 import numpy as np
 
@@ -18,13 +18,10 @@ with col1:
     post = st.text_area("Post")
     All = title + " - " + post
 
-pred = pickled_model.predict(pd.Series(All))
+pred = pickled_model.predict(stem(All))
 
 with col2:
     st.write(pred)
 
-with st.button("Save Model Prediction"):
-    st.write(title, " -> ", type(title))
-    st.write(post, " -> ", type(post))
-    st.write(pred, " -> ", type(pred))
+if st.button("Save Model Prediction"):
     post_data(title, post, pred[0])

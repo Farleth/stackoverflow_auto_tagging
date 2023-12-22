@@ -16,7 +16,7 @@ app = FastAPI()
 url = "https://bosbinvsnempbohyiwjy.supabase.co"
 key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJvc2JpbnZzbmVtcGJvaHlpd2p5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDMwNjY2OTQsImV4cCI6MjAxODY0MjY5NH0.1_2dP0dRw2tSiEjervRFTXWftM77DbTk3IHyT6C1Rcc"
 supabase: Client = create_client(url, key)
-data = pd.read_csv('data.csv')
+data = pd.read_csv('notebooks/data.csv')
 
 def get_data():
     response = supabase.from_('data').select('*').execute()

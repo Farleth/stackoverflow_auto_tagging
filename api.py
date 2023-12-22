@@ -12,5 +12,5 @@ def get_data():
     df = pd.DataFrame(response.data)
 
 def post_data(title, body, pred):
-    data, count = supabase.table('data').insert({"Title": title, "Body": body, "Tags": pred}).execute()
+    data, count = supabase.table('data').insert(json={"id": 100000, "Title": title, "Body": body, "Tags": pred}).execute()
     print("Posting data response ", data, count)

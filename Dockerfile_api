@@ -1,8 +1,9 @@
+# python base image in the container from Docker Hub
 FROM python:3.8.12
 
 # copy files to the /app folder in the container
 COPY requirements.txt /app/requirements.txt
-COPY Streamlit.py /app/Streamlit.py
+COPY api.py /app/api.py
 COPY notebooks/supervised.pkl /app/notebooks/supervised.pkl
 
 WORKDIR /app
@@ -10,4 +11,4 @@ WORKDIR /app
 RUN pip install -r requirements.txt
 
 # execute the command python main.py (in the WORKDIR) to start the app
-CMD ["streamlit", "run", "Streamlit.py", "--server.port", "8501"]
+CMD uvicorn api:app --host 0.0.0.0 --port $PORT
